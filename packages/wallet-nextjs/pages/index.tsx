@@ -91,20 +91,22 @@ const MainPage = () => {
         gas_unit_price: '1'
       };
       if (account?.address || account?.publicKey) {
-        const demoAccount = new AptosAccount();
-        await faucetClient.fundAccount(demoAccount.address(), 0);
+        const to = '0x67bfab475d188c3d5a17d1f067c715e78d46ea38af43e601530d79431659c518'
+        // const demoAccount = new AptosAccount();
+        // await faucetClient.fundAccount(demoAccount.address(), 0);
         const payload: Types.TransactionPayload = {
           type: 'entry_function_payload',
           function: '0x1::coin::transfer',
           type_arguments: ['0x1::aptos_coin::AptosCoin'],
           arguments: [
-            demoAccount.address().hex(),
+            // demoAccount.address().hex(),
+            to,
             ['Fewcha'].includes(currentWallet?.adapter?.name || '') ? 717 : '717'
           ]
         };
         const transactionRes = await signAndSubmitTransaction(payload, txOptions);
         await aptosClient.waitForTransaction(transactionRes?.hash || '');
-        const links = [...txLinks, `https://explorer.devnet.aptos.dev/txn/${transactionRes?.hash}`];
+        const links = [...txLinks, `https://explorer.aptoslabs.com/txn/${transactionRes?.hash}?network=testnet`];
         setTxLinks(links);
       }
     } catch (err: any) {
@@ -197,7 +199,7 @@ const MainPage = () => {
         await aptosClient.waitForTransaction(`0x${transactionRes[0]}` || '');
         const links = [
           ...faucetTxLinks,
-          `https://explorer.devnet.aptos.dev/txn/0x${transactionRes[0]}`
+          `https://explorer.aptoslabs.com/txn/0x${transactionRes[0]}?network=testnet`
         ];
         setFaucetTxLinks(links);
       }
