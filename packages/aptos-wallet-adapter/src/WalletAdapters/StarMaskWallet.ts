@@ -170,7 +170,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
       const provider = this._provider || window.starcoin;
       const isConnected = await provider?.isConnected();
       if (isConnected) {
-        await provider?.disconnect();
+        // await provider?.disconnect();
       }
       const response = await provider?.connect();
 
@@ -179,7 +179,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
       }
 
       const walletAccount = response.address;
-      const publicKey = response.publicKey;
+      const publicKey = null;
       if (walletAccount) {
         this._wallet = {
           address: walletAccount,
@@ -191,7 +191,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
           const networkInfo = await provider?.network();
           this._network = networkInfo.name;
           this._chainId = networkInfo.chainId;
-          this._api = networkInfo.api;
+          this._api = null;
         } catch (error: any) {
           const errMsg = error.message;
           this.emit('error', new WalletGetNetworkError(errMsg));
