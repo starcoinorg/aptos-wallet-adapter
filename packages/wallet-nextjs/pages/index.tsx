@@ -21,6 +21,7 @@ const MainPage = () => {
     connect,
     disconnect,
     account,
+    network,
     wallets,
     signAndSubmitTransaction,
     connecting,
@@ -222,6 +223,9 @@ const MainPage = () => {
         <div className="flex flex-col gap-2 w-full">
           <strong>
             Wallet: <div id="address">{currentWallet?.adapter.name}</div>
+          </strong>
+          <strong>
+            network: <div id="network">{JSON.stringify(network)}</div>
           </strong>
           <strong>
             Address: <div id="address">{account?.address?.toString()}</div>
