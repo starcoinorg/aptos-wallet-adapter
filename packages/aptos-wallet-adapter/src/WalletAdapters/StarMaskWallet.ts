@@ -78,10 +78,10 @@ export interface StarMaskWalletAdapterConfig {
 export class StarMaskWalletAdapter extends BaseWalletAdapter {
   name = StarMaskWalletName;
 
-  url = 'https://chrome.google.com/webstore/detail/pontem-wallet/phkbamefinggmakgklpkljjmgibohnba';
+  url = 'https://chrome.google.com/webstore/detail/starmask/mfhbebgoclkghebffdldpobeajmbecfk';
 
   icon =
-    'https://www.gitbook.com/cdn-cgi/image/width=20,height=20,fit=contain,dpr=2,format=auto/https%3A%2F%2F736486047-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fspaces%252F-MVVJKmKQGx983dZy_jr%252Favatar-1619180126965.png%3Fgeneration%3D1619180127194239%26alt%3Dmedia';
+    'https://lh3.googleusercontent.com/f4D8qy1-4es3Tyx_TUeeXM_VrYIqbRvZcFssWKwNZOW7CW595TzOpNX7p84xN7JoMzDxODfa-xOSCLsql0b16VssgA=w128-h128-e365-rj-sc0x00ffffff';
 
   protected _provider: IStarMaskWallet | undefined;
 
