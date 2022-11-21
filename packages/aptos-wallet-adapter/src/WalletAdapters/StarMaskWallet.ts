@@ -62,7 +62,7 @@ interface IStarMaskWallet {
 }
 
 interface StarMaskWindow extends Window {
-  pontem?: IStarMaskWallet;
+  starcoin?: any;
 }
 
 declare const window: StarMaskWindow;
@@ -70,7 +70,7 @@ declare const window: StarMaskWindow;
 export const StarMaskWalletName = 'StarMask' as WalletName<'StarMask'>;
 
 export interface StarMaskWalletAdapterConfig {
-  provider?: IStarMaskWallet;
+  provider?: any;
   // network?: WalletAdapterNetwork;
   timeout?: number;
 }
@@ -83,7 +83,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
   icon =
     'https://lh3.googleusercontent.com/f4D8qy1-4es3Tyx_TUeeXM_VrYIqbRvZcFssWKwNZOW7CW595TzOpNX7p84xN7JoMzDxODfa-xOSCLsql0b16VssgA=w128-h128-e365-rj-sc0x00ffffff';
 
-  protected _provider: IStarMaskWallet | undefined;
+  protected _provider: any | undefined;
 
   protected _network: WalletAdapterNetwork;
 
@@ -109,7 +109,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
   }: StarMaskWalletAdapterConfig = {}) {
     super();
 
-    this._provider = typeof window !== 'undefined' ? window.pontem : undefined;
+    this._provider = typeof window !== 'undefined' ? window.starcoin : undefined;
     this._network = undefined;
     this._timeout = timeout;
     this._connecting = false;
@@ -117,7 +117,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
 
     if (typeof window !== 'undefined' && this._readyState !== WalletReadyState.Unsupported) {
       scopePollingDetectionStrategy(() => {
-        if (window.pontem) {
+        if (window.starcoin) {
           this._readyState = WalletReadyState.Installed;
           this.emit('readyStateChange', this._readyState);
           return true;
@@ -167,7 +167,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
         throw new WalletNotReadyError();
       this._connecting = true;
 
-      const provider = this._provider || window.pontem;
+      const provider = this._provider || window.starcoin;
       const isConnected = await provider?.isConnected();
       if (isConnected) {
         await provider?.disconnect();
@@ -210,7 +210,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
 
   async disconnect(): Promise<void> {
     const wallet = this._wallet;
-    const provider = this._provider || window.pontem;
+    const provider = this._provider || window.starcoin;
     if (wallet) {
       this._wallet = null;
 
@@ -230,7 +230,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
   ): Promise<Uint8Array> {
     try {
       const wallet = this._wallet;
-      const provider = this._provider || window.pontem;
+      const provider = this._provider || window.starcoin;
       if (!wallet || !provider) throw new WalletNotConnectedError();
       const response = await provider?.signTransaction(transactionPyld, options);
 
@@ -247,7 +247,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
   ): Promise<{ hash: Types.HexEncodedBytes }> {
     try {
       const wallet = this._wallet;
-      const provider = this._provider || window.pontem;
+      const provider = this._provider || window.starcoin;
       if (!wallet || !provider) throw new WalletNotConnectedError();
       const response = await provider?.signAndSubmit(transactionPyld, options);
 
@@ -264,7 +264,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
   async signMessage(messagePayload: SignMessagePayload): Promise<SignMessageResponse> {
     try {
       const wallet = this._wallet;
-      const provider = this._provider || window.pontem;
+      const provider = this._provider || window.starcoin;
       if (!wallet || !provider) throw new WalletNotConnectedError();
 
       const response = await provider?.signMessage(messagePayload);
@@ -283,7 +283,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
   async onAccountChange(): Promise<void> {
     try {
       const wallet = this._wallet;
-      const provider = this._provider || window.pontem;
+      const provider = this._provider || window.starcoin;
       if (!wallet || !provider) throw new WalletNotConnectedError();
       const handleAccountChange = async (newAccount: string | undefined) => {
         // disconnect wallet if newAccount is undefined
@@ -312,7 +312,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
   async onNetworkChange(): Promise<void> {
     try {
       const wallet = this._wallet;
-      const provider = this._provider || window.pontem;
+      const provider = this._provider || window.starcoin;
       if (!wallet || !provider) throw new WalletNotConnectedError();
       const handleNetworkChange = (network: NetworkInfo) => {
         this._network = network.name;
