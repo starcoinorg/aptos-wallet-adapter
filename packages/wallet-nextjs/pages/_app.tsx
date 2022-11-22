@@ -19,7 +19,7 @@ import {
   Coin98WalletAdapter,
   FoxWalletAdapter,
   StarMaskWalletAdapter,
-} from '@manahippo/aptos-wallet-adapter';
+} from '@starcoin/aptos-wallet-adapter';
 import { useMemo } from 'react';
 import { message } from 'antd';
 
