@@ -170,7 +170,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
       const provider = this._provider || window.starcoin;
       const isConnected = await provider?.isConnected();
       if (isConnected) {
-        // await provider?.disconnect();
+        await provider?.disconnect();
       }
       const response = await provider?.connect();
 
@@ -232,9 +232,9 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
       const wallet = this._wallet;
       const provider = this._provider || window.starcoin;
       if (!wallet || !provider) throw new WalletNotConnectedError();
-      const response = await provider?.signTransaction(transactionPyld, options);
-
-      return response as Uint8Array;
+      // const response = await provider?.signTransaction(transactionPyld, options);
+      // return response as Uint8Array;
+      throw new WalletSignTransactionError('signTransaction is not implemented')
     } catch (error: any) {
       this.emit('error', new WalletSignTransactionError(error));
       throw error;
@@ -242,19 +242,19 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
   }
 
   async signAndSubmitTransaction(
-    transactionPyld: Types.TransactionPayload,
+    transaction: Types.TransactionPayload,
     options?: any
   ): Promise<{ hash: Types.HexEncodedBytes }> {
     try {
       const wallet = this._wallet;
       const provider = this._provider || window.starcoin;
       if (!wallet || !provider) throw new WalletNotConnectedError();
-      const response = await provider?.signAndSubmit(transactionPyld, options);
-
-      if (!response || !response.success) {
-        throw new Error('No response');
+      const response = await provider.signAndSubmitTransaction(transaction, options);
+      if (response) {
+        return { hash: response };
+      } else {
+        throw new Error('Transaction failed');
       }
-      return { hash: response.result.hash };
     } catch (error: any) {
       this.emit('error', new WalletSignAndSubmitMessageError(error.message));
       throw error;
@@ -268,8 +268,8 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
       if (!wallet || !provider) throw new WalletNotConnectedError();
 
       const response = await provider?.signMessage(messagePayload);
-      if (response.success) {
-        return response.result;
+      if (response) {
+        return response;
       } else {
         throw new Error('Sign Message failed');
       }
@@ -293,7 +293,8 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
           }
           return;
         }
-        const newPublicKey = await provider?.publicKey();
+        // const newPublicKey = await provider?.publicKey();
+        const newPublicKey = null;
         this._wallet = {
           ...this._wallet,
           address: newAccount,
