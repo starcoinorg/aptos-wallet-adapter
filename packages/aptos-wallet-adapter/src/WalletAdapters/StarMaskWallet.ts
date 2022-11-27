@@ -81,7 +81,7 @@ export class StarMaskWalletAdapter extends BaseWalletAdapter {
   url = 'https://chrome.google.com/webstore/detail/starmask/mfhbebgoclkghebffdldpobeajmbecfk';
 
   icon =
-    'https://lh3.googleusercontent.com/f4D8qy1-4es3Tyx_TUeeXM_VrYIqbRvZcFssWKwNZOW7CW595TzOpNX7p84xN7JoMzDxODfa-xOSCLsql0b16VssgA=w128-h128-e365-rj-sc0x00ffffff';
+    'https://raw.githubusercontent.com/starcoinorg/starmask-extension/bf03bffd3443d11307e535ac581c881f85dfea7f/app/images/logo/starmask.svg';
 
   protected _provider: any | undefined;
 
